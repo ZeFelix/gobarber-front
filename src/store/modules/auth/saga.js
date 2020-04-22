@@ -29,4 +29,25 @@ function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest(actionType.SIGN_IN_REQUEST, signIn)]);
+function* signUp({ payload }) {
+  try {
+    const { name, email, password } = payload;
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    history.push('/');
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message);
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest(actionType.SIGN_IN_REQUEST, signIn),
+  takeLatest(actionType.SIGN_UP_SUCCESS, signUp),
+]);

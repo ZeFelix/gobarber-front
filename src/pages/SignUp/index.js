@@ -1,7 +1,10 @@
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import Input from '~/components/form/Input';
 import Button from '~/components/form/Button';
@@ -12,14 +15,18 @@ import { schema } from './schema';
 
 export default function SignIn() {
   const formRef = useRef(null);
+  const dispatch = useDispatch();
 
-  async function handleSubmit(data) {
+  async function handleSubmit({ name, email, password }) {
     try {
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+      await schema.validate(
+        { name, email, password },
+        {
+          abortEarly: false,
+        }
+      );
 
-      console.tron.log(data);
+      dispatch(signUpRequest(name, email, password));
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
