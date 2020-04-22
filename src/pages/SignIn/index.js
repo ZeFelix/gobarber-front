@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -16,6 +16,7 @@ import { schema } from './schema';
 export default function SignIn() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
 
   async function handleSubmit({ email, password }) {
     try {
@@ -45,7 +46,7 @@ export default function SignIn() {
         <Input name="email" type="email" placeholder="Digite seu email" />
         <Input name="password" type="password" placeholder="Digite sua senha" />
 
-        <Button type="submit">Acessar</Button>
+        <Button type="submit">{loading ? 'Carregando...' : 'Acessar'}</Button>
         <Link to="/register">Registrar</Link>
       </Form>
     </>
