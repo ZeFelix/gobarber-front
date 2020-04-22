@@ -30,6 +30,7 @@ export const Badge = styled.button`
 export const NotificationList = styled.div`
   background: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
+  display: ${(props) => (props.visible ? 'block' : 'none')};
   left: calc(50% - 130px);
   padding: 15px 5px;
   position: absolute;
@@ -69,18 +70,17 @@ export const Notification = styled.div`
   }
 
   time {
+    display: block;
     font-size: 12px;
+    margin-bottom: 5px;
     opacity: 0.6;
   }
 
   button {
     background: none;
     border: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
     color: ${lighten(0.2, '#7159c1')};
     font-size: 12px;
-    margin: 0 5px;
-    padding: 0 5px;
   }
 
   ${(props) =>
@@ -92,6 +92,7 @@ export const Notification = styled.div`
         content: '';
         display: inline-block;
         height: 8px;
+        margin-left: 10px;
         width: 8px;
       }
     `}
