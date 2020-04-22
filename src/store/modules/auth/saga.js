@@ -19,6 +19,7 @@ function* signIn({ payload }) {
     if (!user.provider) {
       toast.warn('Usuário não é prestador');
     } else {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
       yield put(signInSuccess(token, user));
       history.push('/dashboard');
     }
@@ -47,7 +48,16 @@ function* signUp({ payload }) {
   }
 }
 
+// eslint-disable-next-line require-yield
+function* setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+  if (token) api.defaults.headers.Authorization = `Bearer ${token}`;
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest(actionType.SIGN_IN_REQUEST, signIn),
   takeLatest(actionType.SIGN_UP_SUCCESS, signUp),
 ]);
