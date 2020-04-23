@@ -14,6 +14,7 @@ export const Container = styled.div`
     button {
       background: none;
       border: 0;
+      display: flex;
     }
 
     strong {
