@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Button = styled.button`
-  background: #3b9eff;
+  background: ${(props) => (props.color ? props.color : '#3b9eff')};
   border: 0;
   border-radius: 4px;
   color: #fff;
@@ -11,8 +11,10 @@ export const Button = styled.button`
   height: 44px;
   margin: 5px 0 0;
   transition: background 0.2s;
+  width: 100%;
 
   &:hover {
-    background: ${darken(0.03, '#3b9eff')};
+    background: ${(props) =>
+    props.color ? darken(0.08, props.color) : darken(0.08, '#3b9eff')};
   }
 `;

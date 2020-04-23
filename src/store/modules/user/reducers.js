@@ -1,19 +1,24 @@
 import produce from 'immer';
 
 import authActionType from '~/store/modules/auth/actionsType';
+import userActionType from './actionsType';
 
 const initialState = {
   profile: {},
 };
 
 export default function user(state = initialState, action) {
-  switch (action.type) {
-    case authActionType.SIGN_IN_SUCCESS:
-      return produce(state, (draft) => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case authActionType.SIGN_IN_SUCCESS:
         draft.profile = action.payload.user;
-      });
+        break;
 
-    default:
-      return state;
-  }
+      case userActionType.UPDATE_PROFILE_SUCCESS:
+        draft.profile = action.payload.profile;
+        break;
+
+      default:
+    }
+  });
 }
