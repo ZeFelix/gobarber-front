@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Form as unForm } from '@unform/web';
 
 export const Container = styled.div`
-  margin: 30px auto;
+  margin: 50px auto;
   max-width: 600px;
 `;
 
