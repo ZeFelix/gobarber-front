@@ -18,6 +18,10 @@ export default function user(state = initialState, action) {
         draft.profile = action.payload.profile;
         break;
 
+      case authActionType.SIGN_OUT_REQUEST:
+        draft.profile = {};
+        break;
+
       default:
     }
   });

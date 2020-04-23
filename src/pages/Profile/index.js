@@ -6,6 +6,8 @@ import {
   updateAvatarRequest,
 } from '~/store/modules/user/actions';
 
+import { signOutRequest } from '~/store/modules/auth/actions';
+
 import Input from '~/components/form/Input';
 import Button from '~/components/form/Button';
 import AvatarInput from './AvatarInput';
@@ -28,6 +30,10 @@ export default function Profile() {
 
   function handleSubmmitAvatar(file) {
     dispatch(updateAvatarRequest(file, profile));
+  }
+
+  function handleSignOut() {
+    dispatch(signOutRequest());
   }
 
   return (
@@ -55,7 +61,7 @@ export default function Profile() {
         />
         <Button type="submit">Atualizar perfil</Button>
       </S.Form>
-      <Button type="button" color="#f64c75">
+      <Button type="button" color="#f64c75" onClick={handleSignOut}>
         Sair
       </Button>
     </S.Container>
