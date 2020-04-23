@@ -18,6 +18,16 @@ export function updateProfileSuccess(profile) {
   };
 }
 
+export function updateAvatarRequest(file, profile) {
+  return {
+    type: user.UPDATE_AVATAR_REQUEST,
+    payload: {
+      file,
+      profile,
+    },
+  };
+}
+
 export function updateProfileFailure() {
   return {
     type: user.UPDATE_PROFILE_FAILURE,

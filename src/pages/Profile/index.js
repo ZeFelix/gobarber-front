@@ -1,16 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateProfileRequest } from '~/store/modules/user/actions';
+import {
+  updateProfileRequest,
+  updateAvatarRequest,
+} from '~/store/modules/user/actions';
 
 import Input from '~/components/form/Input';
 import Button from '~/components/form/Button';
+import AvatarInput from './AvatarInput';
 
 import * as S from './styles';
 
 export default function Profile() {
   const formRef = useRef(null);
-  const profile = useSelector((state) => state.user.profile);
+  const { profile } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,9 +26,19 @@ export default function Profile() {
     dispatch(updateProfileRequest(data));
   }
 
+  function handleSubmmitAvatar(file) {
+    dispatch(updateAvatarRequest(file, profile));
+  }
+
   return (
     <S.Container>
       <S.Form ref={formRef} onSubmit={handleSubmmit}>
+        <AvatarInput
+          name="avatar_id"
+          avatarId={profile.avatar && profile.avatar.id}
+          avatarUrl={profile.avatar && profile.avatar.url}
+          handleSubmmitAvatar={handleSubmmitAvatar}
+        />
         <Input name="name" placeholder="Nome Completo" />
         <Input name="email" type="email" placeholder="Seu endereço de email" />
         <hr />
